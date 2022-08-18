@@ -7,6 +7,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
 import useStyles from './styles';
+// import SimpleMap from '../GoogleMap';
 
 const Post = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -41,6 +42,7 @@ const Post = () => {
     console.log(recommendedPosts);
 
     return (
+        <>
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
             <div className={classes.card}>
                 <div className={classes.section}>
@@ -50,7 +52,7 @@ const Post = () => {
                     <Typography variant="h6">Created by: {post.name}</Typography>
                     <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
                     <Divider style={{ margin: '20px 0' }} />
-                    <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
+                    <Typography variant="body1"><strong>Event Code: {post.eventCode}</strong></Typography>
                     <Divider style={{ margin: '20px 0' }} />
                     <CommentSection post={post} />
                     <Divider style={{ margin: '20px 0' }} />
@@ -77,6 +79,8 @@ const Post = () => {
                 </div>
             )}
         </Paper>
+        {/* <SimpleMap location={{latitude: 60.45, longitude: 79.5}}/> */}
+        </>
     );
 };
 

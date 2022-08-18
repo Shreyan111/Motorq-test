@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, getPostsBySearch, getPost, createPost, updatePost, likePost, commentPost, deletePost, registerPost, getPostss} from '../controllers/posts.js';
+import { getPosts, getPostsBySearch, getPost, createPost, updatePost, likePost, commentPost, deletePost, registerPost, getPostss, checkEvent } from '../controllers/posts.js';
 const router = express.Router();
 import auth from "../middleware/auth.js";
 
@@ -18,4 +18,6 @@ router.post('/:id/commentPost', commentPost);
 
 router.post('/:id', auth, registerPost);
 router.get('/get/:id', auth, getPostss);
+
+router.post('/check/:code', checkEvent);
 export default router;

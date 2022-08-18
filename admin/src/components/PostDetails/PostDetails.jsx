@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
+import React, { useState, useEffect } from 'react';
+import { TextField, Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useHistory } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import CommentSection from './CommentSection';
 import useStyles from './styles';
+import axios from 'axios';
 
 const Post = () => {
     const { post, posts, isLoading } = useSelector((state) => state.posts);
@@ -14,6 +15,30 @@ const Post = () => {
     const history = useHistory();
     const classes = useStyles();
     const { id } = useParams();
+    const [postData, setPostData] = useState({code: ''});
+
+    const searchCode = () => {
+        console.log(postData.code);
+        axios.post(`http://localhost:5000/posts/check/${postData.code}`, {})
+          .then(function (response) {
+            console.log(response);
+            if(response.data.message == "Event found"){
+                alert("The participant is valid and registered!!");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            if(error.response.status == 404){
+                alert("Participant has not registered or not a valid participant");
+            }
+          });
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+            searchCode();
+        }
+    };
 
     useEffect(() => {
         dispatch(getPost(id));
@@ -49,8 +74,8 @@ const Post = () => {
                     <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
                     <Typography variant="h6">Created by: {post.name}</Typography>
                     <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
+                    <TextField name="code" variant="outlined" label="Code" onKeyDown={handleKeyPress} fullWidth value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })} />
                     <Divider style={{ margin: '20px 0' }} />
-                    <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
                     <Divider style={{ margin: '20px 0' }} />
                     <CommentSection post={post} />
                     <Divider style={{ margin: '20px 0' }} />
