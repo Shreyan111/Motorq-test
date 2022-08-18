@@ -1,3 +1,4 @@
+//methods initialised for all the posts used in the portal
 import { FETCH_ALL, FETCH_BY_SEARCH, FETCH_POST, CREATE, UPDATE, DELETE, LIKE, START_LOADING, END_LOADING, COMMENT, REGISTER, FETCH_REGISTERED} from '../constants/actionTypes';
 
 export default (state = { isLoading: true, posts: [] }, action) => {

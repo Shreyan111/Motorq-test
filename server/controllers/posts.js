@@ -5,6 +5,7 @@ import PostMessage from '../models/postMessage.js';
 
 const router = express.Router();
 
+//for getting the posts or event
 export const getPosts = async (req, res) => {
     const { page } = req.query;
 
@@ -21,6 +22,7 @@ export const getPosts = async (req, res) => {
     }
 }
 
+//for getting the post or event
 export const getPost = async (req, res) => {
     const { id } = req.params;
 
@@ -33,6 +35,7 @@ export const getPost = async (req, res) => {
     }
 }
 
+//for creating the post or event
 export const createPost = async (req, res) => {
     const post = req.body;
 
@@ -47,6 +50,7 @@ export const createPost = async (req, res) => {
     }
 }
 
+//for updating the post or event
 export const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, message, creator, selectedFile, tags, likes, event_capacity, event_start_timestamp, event_end_timestamp, event_location } = req.body;
@@ -60,6 +64,7 @@ export const updatePost = async (req, res) => {
     res.json(updatedPost);
 }
 
+//for deleting the post or event
 export const deletePost = async (req, res) => {
     const { id } = req.params;
 
@@ -70,6 +75,7 @@ export const deletePost = async (req, res) => {
     res.json({ message: "Post deleted successfully." });
 }
 
+//for liking the post or event
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
@@ -94,7 +100,7 @@ export const likePost = async (req, res) => {
 
 //QUERY -> /posts?page=1 -> page = 1
 //PARAMS -> /posts/:id -> /posts/123 -> id = 123
-
+//for getting posts or event by search or tagname
 export const getPostsBySearch = async (req, res) => {
     const { searchQuery, tags } = req.query;
 
@@ -109,6 +115,7 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
+//for commenting the post or event
 export const commentPost = async (req, res) => {
     const { id } = req.params;
     const { value } = req.body;
@@ -122,6 +129,7 @@ export const commentPost = async (req, res) => {
     res.json(updatedPost);
 };
 
+//for registering the post or event
 export const registerPost = async(req, res) => {
     const { id } = req.params;
 
@@ -146,6 +154,7 @@ export const registerPost = async(req, res) => {
     res.status(200).json(updatedPost);
 }
 
+//for getting the posts or events which has been registered by the user
 export const getPostss = async(req, res) => {
     const { id } = req.params;
     try {

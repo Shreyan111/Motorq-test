@@ -27,7 +27,6 @@ const Home = () => {
     const history = useHistory();
 
     const searchPost = () => {
-        console.log(tags);
         if (search.trim() || tags) {
             dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
             history.push(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);

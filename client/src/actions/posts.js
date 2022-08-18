@@ -1,6 +1,7 @@
 import { START_LOADING, END_LOADING, FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, CREATE, UPDATE, DELETE, LIKE, COMMENT, REGISTER, FETCH_REGISTERED} from '../constants/actionTypes';
 import * as api from '../api/index.js';
 
+//getting events
 export const getPosts = (page) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -13,6 +14,7 @@ export const getPosts = (page) => async (dispatch) => {
     }
 };
 
+//creating events
 export const createPost = (post) => async (dispatch) => {
     try {
         const { data } = await api.createPost(post);
@@ -23,6 +25,7 @@ export const createPost = (post) => async (dispatch) => {
     }
 };
 
+//updating events
 export const updatePost = (id, post) => async (dispatch) => {
     try {
         const { data } = await api.updatePost(id, post);
@@ -33,6 +36,7 @@ export const updatePost = (id, post) => async (dispatch) => {
     }
 };
 
+//liking the events
 export const likePost = (id) => async (dispatch) => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -45,6 +49,7 @@ export const likePost = (id) => async (dispatch) => {
     }
 };
 
+//deleting the events
 export const deletePost = (id) => async (dispatch) => {
     try {
         await await api.deletePost(id);
@@ -55,6 +60,7 @@ export const deletePost = (id) => async (dispatch) => {
     }
 };
 
+//searching events by tags and query
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -67,6 +73,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     }
 };
 
+//commenting
 export const commentPost = (value, id) => async (dispatch) => {
     try {
         const { data } = await api.comment(value, id);
@@ -79,6 +86,7 @@ export const commentPost = (value, id) => async (dispatch) => {
     }
 };
 
+//get a specific event
 export const getPost = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
@@ -91,6 +99,7 @@ export const getPost = (id) => async (dispatch) => {
     }
 };
 
+//register for the event
 export const registerPost = (id) => async (dispatch) => {
     const user = JSON.parse(localStorage.getItem('profile'));
 
@@ -103,14 +112,14 @@ export const registerPost = (id) => async (dispatch) => {
     }
 };
 
+//get all registered events
 export const getregisteredPosts = (id) => async (dispatch) => {
     try {
         dispatch({ type: START_LOADING });
         const resp = await api.fetchallPosts(id);
         // console.log("resp : ", resp);
         // const { data: { data } } = await api.fetchallPosts(id);
-        const data = resp.data.result[0];
-        console.log( "data:", data);
+        const data = resp.data.result;
         dispatch({ type: FETCH_REGISTERED, payload: { data } });
         dispatch({ type: END_LOADING });
     } catch (error) {

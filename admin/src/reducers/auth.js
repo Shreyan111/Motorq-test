@@ -1,3 +1,4 @@
+//methods initialised for all the auth used in the portal
 import * as actionType from '../constants/actionTypes';
 
 const authReducer = (state = { authData: null }, action) => {

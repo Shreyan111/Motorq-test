@@ -5,6 +5,7 @@ import UserModal from "../models/user.js";
 
 const secret = 'test';
 
+//for signin
 export const signin = async (req, res) => {
     const { email, password } = req.body;
 
@@ -25,6 +26,7 @@ export const signin = async (req, res) => {
     }
 };
 
+//for signup
 export const signup = async (req, res) => {
     const { email, password, firstName, lastName } = req.body;
 

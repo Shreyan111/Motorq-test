@@ -1,8 +1,9 @@
+//common place where all the api's are kept for better accessibility
 import axios from 'axios';
 
 const API = axios.create({ baseURL: 'http://localhost:5000' });
-// const API = axios.create({ baseURL: 'https://my-social-media-app-memories.herokuapp.com' });
 
+//bearer token
 API.interceptors.request.use((req) => {
     if (localStorage.getItem('profile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
@@ -11,6 +12,7 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
+//event api's
 export const fetchPost = (id) => API.get(`/posts/${id}`);
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
@@ -22,5 +24,6 @@ export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const registerPost = (id) => API.post(`/posts/${id}`);
 export const fetchallPosts = (id) => API.get(`/posts/get/${id}`);
 
+//auth api's
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);

@@ -16,7 +16,7 @@ const Posts = ({ setCurrentId }) => {
     if (!posts.length && !isLoading) return 'No Events Created';
 
     return (
-        !user ? 'Didnt login' : (isLoading ? <CircularProgress /> : (
+        !user ? 'Please login!!' : (isLoading ? <CircularProgress /> : (
             <Grid className={classes.container} container alignItems="stretch" spacing={3}>
                 {posts?.map((post) => (
                     <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}>
